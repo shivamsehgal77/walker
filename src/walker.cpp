@@ -31,10 +31,10 @@ public:
  * @brief Construct a new Walker object
  * 
  */
-Walker() : Node("Walker"), collision_distance_(0.5) {
+Walker() : Node("walker"), collision_distance_(0.3) {
     RCLCPP_INFO(this->get_logger(), "Setting up publisher and subcriber");
-    vel_pub_ = this->create_publisher<geometry_msgs::msg::Twist>("cmd_vel", 10);
-    subscription_ = this->create_subscription<sensor_msgs::msg::LaserScan>(
+    velocity_publisher_ = this->create_publisher<geometry_msgs::msg::Twist>("cmd_vel", 10);
+    scan_subscriber_ = this->create_subscription<sensor_msgs::msg::LaserScan>(
         "scan", 10, std::bind(&Walker::scan_callback, this, _1));
     RCLCPP_INFO(this->get_logger(), "Walker Node Initialized!");
 }
@@ -70,15 +70,15 @@ private:
             cmd_vel_msg.angular.z = -0.5;
         } else {
             RCLCPP_INFO(this->get_logger(), "No Obstacles Found!");
-            cmd_vel_msg.linear.x = -0.3;
+            cmd_vel_msg.linear.x = 0.1;
             cmd_vel_msg.angular.z = 0.0;
         }
-        vel_pub_->publish(cmd_vel_msg);
+        velocity_publisher_->publish(cmd_vel_msg);
     }
     
-    rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr vel_pub_;
+    rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr velocity_publisher_;
     double collision_distance_;
-    rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr subscription_;
+    rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr scan_subscriber_;
     std::string cmd_vel_topic = "/cmd_vel";
     std::string laser_topic = "/scan";
 };

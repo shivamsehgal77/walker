@@ -17,13 +17,13 @@
   <depend>gazebo_ros_pkgs</depend>
 
   <!-- Turtlebot4 -->
-  <depend>turtlebot4_description</depend>
+  <!-- <depend>turtlebot4_description</depend>
   <depend>turtlebot4_msgs</depend>
   <depend>turtlebot4_navigation</depend>
   <depend>turtlebot4_node</depend>
   <depend>turtlebot4_viz</depend>
   <depend>turtlebot4_ignition_gui_plugins</depend>
-  <depend>turtlebot4_ignition_toolbox</depend>
+  <depend>turtlebot4_ignition_toolbox</depend> -->
 
   <!-- Messages -->
   <depend>std_msgs</depend>
