@@ -20,9 +20,8 @@
 #include "std_msgs/msg/string.hpp"
 
 using std::placeholders::_1;
-
 /**
- * @brief Walker class
+ * @brief Walker class inheriting the rclcpp:Node class
  * 
  */
 class Walker : public rclcpp::Node {
@@ -43,20 +42,20 @@ private:
     /**
      * @brief callback for laser scan
      * 
-     * @param scan_msg 
+     * @param laser_scan_msg 
      */
     void scan_callback(
-            const sensor_msgs::msg::LaserScan::SharedPtr scan_msg) const {
-        int16_t start_idx = 45;
-        int16_t end_idx = 315;
+            const sensor_msgs::msg::LaserScan::SharedPtr laser_scan) const {
+        int16_t start_angle = 45;
+        int16_t end_angle = 315;
         geometry_msgs::msg::Twist cmd_vel_msg;
-        double scan_max = scan_msg->range_max;
+        double scan_max = laser_scan->range_max;
         double min_dist_to_obstacle = scan_max;
 
-        for (int16_t i = 0; i < int16_t(scan_msg->ranges.size()); i++) {
-            if (i <= start_idx || i >= end_idx) {
-                if (!std::isnan(scan_msg->ranges[i])) {
-                    double scan_dist = scan_msg->ranges[i];
+        for (int16_t i = 0; i < int16_t(laser_scan->ranges.size()); i++) {
+            if (i <= start_angle || i >= end_angle) {
+                if (!std::isnan(laser_scan->ranges[i])) {
+                    double scan_dist = laser_scan->ranges[i];
                     if (scan_dist < min_dist_to_obstacle) {
                         min_dist_to_obstacle = scan_dist;
                     }
@@ -64,13 +63,13 @@ private:
             }
         }
         if (min_dist_to_obstacle <= collision_distance_) {
-            RCLCPP_WARN(this->get_logger(), "Obstacle on path!");
-            RCLCPP_INFO(this->get_logger(), "Turning to avoid obstacle!");
+            RCLCPP_WARN(this->get_logger(), "Obstacle at distance less than! %f", collision_distance_);
+            RCLCPP_INFO(this->get_logger(), "Turning turtlebot to avoid obstacle!");
             cmd_vel_msg.linear.x = 0.0;
             cmd_vel_msg.angular.z = -0.5;
         } else {
-            RCLCPP_INFO(this->get_logger(), "No Obstacles Found!");
-            cmd_vel_msg.linear.x = 0.1;
+            RCLCPP_INFO(this->get_logger(), "Moving forward wiht velocity 0.2!");
+            cmd_vel_msg.linear.x = 0.2;
             cmd_vel_msg.angular.z = 0.0;
         }
         velocity_publisher_->publish(cmd_vel_msg);
@@ -79,8 +78,6 @@ private:
     rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr velocity_publisher_;
     double collision_distance_;
     rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr scan_subscriber_;
-    std::string cmd_vel_topic = "/cmd_vel";
-    std::string laser_topic = "/scan";
 };
 
 
