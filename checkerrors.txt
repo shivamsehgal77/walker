@@ -1,0 +1,12 @@
+Checking libs/walker.cpp ...
+libs/walker.cpp:12:0: information: Include file: "walker/walker.hpp" not found. [missingInclude]
+
+^
+1/2 files checked 79% done
+Checking src/main.cpp ...
+src/main.cpp:11:0: information: Include file: "walker/walker.hpp" not found. [missingInclude]
+
+^
+2/2 files checked 100% done
+nofile:0:0: information: Unmatched suppression: missingIncludeSystem [unmatchedSuppression]
+

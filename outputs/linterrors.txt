@@ -1,0 +1,4 @@
+./src/main.cpp:17:  Could not find a newline character at the end of the file.  [whitespace/ending_newline] [5]
+Done processing ./libs/walker.cpp
+Done processing ./src/main.cpp
+Total errors found: 1
