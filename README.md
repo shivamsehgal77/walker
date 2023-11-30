@@ -29,7 +29,7 @@ In another terminal source install/setup.bash
 source install/setup.bash
 ```
 
-### Running the package
+## Running the package
 without ros bag
 ```bash
 TURTLEBOT3=burger ros2 launch walker gazebo_launch.launch 
@@ -38,7 +38,8 @@ with ross bag
 ```bash
 TURTLEBOT3=burger ros2 launch walker gazebo_launch.launch record:=True
 ```
-
+## Results
+![Turtlebot3 Walker](outputs/turtlebot_sim2.mp4)
 
 
 
