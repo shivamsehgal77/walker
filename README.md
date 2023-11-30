@@ -39,7 +39,10 @@ with ross bag
 TURTLEBOT3=burger ros2 launch walker gazebo_launch.launch record:=True
 ```
 ## Results
-![Turtlebot3 Walker](outputs/turtlebot_sim2.mp4)
+<video width="320" height="240" controls>
+  <source src="outputs/turtlebot_sim2.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 
 
