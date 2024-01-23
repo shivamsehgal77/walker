@@ -38,7 +38,7 @@ with ross bag
 ```bash
 TURTLEBOT3=burger ros2 launch walker gazebo_launch.launch record:=True
 ```
-## Results
+## Result
 - Ros bag inspection `ros2 bag info outputs/rosbag_walker.db3`
 - Ros bag play `ros2 bag play outputs/rosbag_walker.db3`
 
